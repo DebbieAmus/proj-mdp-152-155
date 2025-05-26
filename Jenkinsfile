@@ -39,7 +39,7 @@ pipeline {
             steps {
                 script {
                     sh """
-                    docker run -d --name ${CONTAINER_NAME} -p ${PORT}:8080 ${IMAGE_NAME}:latest
+                    docker run -d --name ${CONTAINER_NAME} -p ${PORT}:8081 ${IMAGE_NAME}:latest
                     """
                 }
             }
