@@ -1,0 +1,16 @@
+---
+- name: Create KOPS Cluster
+  hosts: k8
+  become: yes
+  tasks:
+    - name: Create KOPS cluster
+      shell: |
+        kops create cluster \
+          --state=s3://k8sbucket111 \
+          --zones=us-east-2a,us-east-2b \
+          --node-count=2 \
+          --name=calculator.k8s.local \
+          --yes
+      environment:
+        KOPS_STATE_STORE: s3://k8sbucket111
+...
