@@ -1,0 +1,21 @@
+---
+- name: Create Kubernetes Cluster using Kops
+  hosts: master
+  become: yes
+  tasks:
+    - name: Create Kubernetes cluster with Kops
+      shell: |
+        export KOPS_STATE_STORE=s3://my-kops-state-store
+        export AWS_DEFAULT_REGION=us-east-1
+        /usr/local/bin/kops create cluster \
+          --name=mycluster.k8s.local \
+          --zones=us-east-1a,us-east-1b \
+          --master-zones=us-east-1a,us-east-1b \
+          --node-count=2 \
+          --node-size=t3.medium \
+          --master-size=t3.medium \
+          --ssh-public-key=/home/ec2-user/.ssh/id_rsa.pub \
+          --yes
+      args:
+        executable: /bin/bash
+
